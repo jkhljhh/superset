@@ -28,7 +28,7 @@ import {
 } from '@superset-ui/core';
 import { getUrlParam } from 'src/utils/urlUtils';
 import { FilterPlugins, URL_PARAMS } from 'src/constants';
-import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Button from 'src/components/Button';
 import { AsyncSelect } from 'src/components';
 import { Steps } from 'src/components/Steps';
@@ -292,37 +292,37 @@ export class ChartCreation extends PureComponent<
 
   render() {
     const isButtonDisabled = this.isBtnDisabled();
-    const VIEW_INSTRUCTIONS_TEXT = t('view instructions');
-    const datasetHelpText = this.state.canCreateDataset ? (
-      <span data-test="dataset-write">
-        <Link to="/dataset/add/" data-test="add-chart-new-dataset">
-          {t('Add a dataset')}
-        </Link>{' '}
-        {t('or')}{' '}
-        <a
-          href="https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard/#registering-a-new-table"
-          rel="noopener noreferrer"
-          target="_blank"
-          data-test="add-chart-new-dataset-instructions"
-        >
-          {`${VIEW_INSTRUCTIONS_TEXT} `}
-          <i className="fa fa-external-link" />
-        </a>
-        .
-      </span>
-    ) : (
-      <span data-test="no-dataset-write">
-        <a
-          href="https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard/#registering-a-new-table"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          {`${VIEW_INSTRUCTIONS_TEXT} `}
-          <i className="fa fa-external-link" />
-        </a>
-        .
-      </span>
-    );
+    // const VIEW_INSTRUCTIONS_TEXT = t('view instructions');
+    // const datasetHelpText = this.state.canCreateDataset ? (
+    //   <span data-test="dataset-write">
+    //     <Link to="/dataset/add/" data-test="add-chart-new-dataset">
+    //       {t('Add a dataset')}
+    //     </Link>{' '}
+    //     {t('or')}{' '}
+    //     <a
+    //       href="https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard/#registering-a-new-table"
+    //       rel="noopener noreferrer"
+    //       target="_blank"
+    //       data-test="add-chart-new-dataset-instructions"
+    //     >
+    //       {`${VIEW_INSTRUCTIONS_TEXT} `}
+    //       <i className="fa fa-external-link" />
+    //     </a>
+    //     .
+    //   </span>
+    // ) : (
+    //   <span data-test="no-dataset-write">
+    //     <a
+    //       href="https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard/#registering-a-new-table"
+    //       rel="noopener noreferrer"
+    //       target="_blank"
+    //     >
+    //       {`${VIEW_INSTRUCTIONS_TEXT} `}
+    //       <i className="fa fa-external-link" />
+    //     </a>
+    //     .
+    //   </span>
+    // );
 
     return (
       <StyledContainer>
@@ -344,7 +344,7 @@ export class ChartCreation extends PureComponent<
                   showSearch
                   value={this.state.datasource}
                 />
-                {datasetHelpText}
+                {/* {datasetHelpText} */}
               </StyledStepDescription>
             }
           />

@@ -107,4 +107,4 @@ const App = () => (
   </Router>
 );
 
-export default hot(App);
+export default hot(App); 

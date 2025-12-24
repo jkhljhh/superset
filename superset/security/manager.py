@@ -51,6 +51,8 @@ from sqlalchemy.engine.base import Connection
 from sqlalchemy.orm import eagerload
 from sqlalchemy.orm.mapper import Mapper
 from sqlalchemy.orm.query import Query as SqlaQuery
+# from flask_jwt_extended import decode_token
+# from superset import security_manager
 
 from superset.constants import RouteMethod
 from superset.errors import ErrorLevel, SupersetError, SupersetErrorType
@@ -354,16 +356,23 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
 
     def create_login_manager(self, app: Flask) -> LoginManager:
         lm = super().create_login_manager(app)
+        print("here is the standard login ",lm)
         lm.request_loader(self.request_loader)
         return lm
 
-    def request_loader(self, request: Request) -> Optional[User]:
+    def request_loader(self, request: Request):
         # pylint: disable=import-outside-toplevel
         from superset.extensions import feature_flag_manager
 
-        if feature_flag_manager.is_feature_enabled("EMBEDDED_SUPERSET"):
-            return self.get_guest_user_from_request(request)
-        return None
+        if not feature_flag_manager.is_feature_enabled("EMBEDDED_SUPERSET"):
+            return None
+
+        # 1. Try the built-in guest-token flow first (if you're using it)
+        guest_user = self.get_guest_user_from_request(request)
+        if guest_user:
+            return guest_user
+
+        
 
     def get_catalog_perm(
         self,

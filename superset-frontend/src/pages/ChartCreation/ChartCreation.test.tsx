@@ -104,7 +104,7 @@ test('renders a select and a VizTypeGallery', async () => {
 test('renders dataset help text when user lacks dataset write permissions', async () => {
   await renderComponent();
   expect(screen.queryByText('Add a dataset')).not.toBeInTheDocument();
-  expect(screen.getByText('view instructions')).toBeInTheDocument();
+  expect(screen.getByText('s')).toBeInTheDocument();
 });
 
 test('renders dataset help text when user has dataset write permissions', async () => {

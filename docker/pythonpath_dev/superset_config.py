@@ -26,8 +26,41 @@ import sys
 
 from celery.schedules import crontab
 from flask_caching.backends.filesystemcache import FileSystemCache
+import ssl
+
+# WARNING: This disables SSL verification globally for this Python process
+# This is insecure and should NOT be used in production.
+if hasattr(ssl, '_create_unverified_context'):
+    ssl._create_default_https_context = ssl._create_unverified_context
+
+
+from custom_security import bp as custom_auth_bp
+
+BLUEPRINTS = [custom_auth_bp]
 
 logger = logging.getLogger()
+
+#----Modification to change x-frame flag
+# Enable CORS
+ENABLE_CORS = True
+
+# CORS options
+CORS_OPTIONS = {
+    'supports_credentials': True,
+    'allow_headers': ['*'], # Or be more specific: ['Authorization', 'Content-Type', 'X-CSRFToken']
+    'resources': ['*'],     # Or be more specific: {r"/api/*": {"origins": "http://localhost:3000"}}
+    'origins': ['http://localhost:3000'] # Add your Next.js app's origin
+}
+
+
+
+OVERRIDE_HTTP_HEADERS = {'X-Frame-Options': 'ALLOWALL'}
+TALISMAN_ENABLED = False
+ENABLE_CORS = True
+WTF_CSRF_ENABLED = False
+HTTP_HEADERS={"X-Frame-Options":"ALLOWALL"}
+
+#---Modification done
 
 DATABASE_DIALECT = os.getenv("DATABASE_DIALECT")
 DATABASE_USER = os.getenv("DATABASE_USER")
@@ -98,7 +131,7 @@ class CeleryConfig:
 
 CELERY_CONFIG = CeleryConfig
 
-FEATURE_FLAGS = {"ALERT_REPORTS": True}
+FEATURE_FLAGS = {"ALERT_REPORTS": True,"EMBEDDED_SUPERSET": True,"GLOBAL_ASYNC_QUERIES": False, }
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
 WEBDRIVER_BASEURL = "http://superset:8088/"  # When using docker compose baseurl should be http://superset_app:8088/  # noqa: E501
 # The base URL for the email report hyperlinks.
@@ -133,3 +166,10 @@ try:
     )
 except ImportError:
     logger.info("Using default Docker config...")
+
+# APP_ICON = "superset-frontend/src/assets/branding/superset-logo-horiz.png"
+APP_ICON="/static/assets/images/Nexus.png"
+APP_NAME="Nexus"
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
+ENABLE_PROXY_FIX = True

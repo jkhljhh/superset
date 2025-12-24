@@ -12,17 +12,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM node:16-alpine AS build
+FROM node:18-alpine AS build
 
 WORKDIR /home/superset-websocket
 
 COPY . ./
 
-RUN npm ci && \
-  npm run build
+RUN npm config set strict-ssl false && \
+    npm ci && \
+    npm run build
 
-
-FROM node:16-alpine
+FROM node:18-alpine
 
 ENV NODE_ENV=production
 WORKDIR /home/superset-websocket

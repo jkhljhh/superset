@@ -270,7 +270,7 @@ const DatasetPanel = ({
     loader = (
       <LoaderContainer>
         <StyledLoader>
-          <img alt={ALT_LOADING} src={LOADING_GIF} />
+          <img alt={"Nexus BI Loading...."} src={LOADING_GIF} />
           <div>{REFRESHING}</div>
         </StyledLoader>
       </LoaderContainer>

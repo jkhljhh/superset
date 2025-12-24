@@ -30,6 +30,9 @@ x-superset-volumes: &superset-volumes
   - superset_home:/app/superset_home
   - ./tests:/app/tests
 
+
+
+
 x-common-build: &common-build
   context: .
   target: ${SUPERSET_BUILD_TARGET:-dev} # can use `dev` (default) or `lean`
@@ -98,6 +101,7 @@ services:
       superset-init:
         condition: service_completed_successfully
     volumes: *superset-volumes
+              
     environment:
       CYPRESS_CONFIG: "${CYPRESS_CONFIG:-}"
       SUPERSET_LOG_LEVEL: "${SUPERSET_LOG_LEVEL:-info}"
@@ -175,8 +179,11 @@ services:
       BUILD_SUPERSET_FRONTEND_IN_DOCKER: true
       NPM_RUN_PRUNE: false
       SCARF_ANALYTICS: "${SCARF_ANALYTICS:-}"
+      
       # configuring the dev-server to use the host.docker.internal to connect to the backend
       superset: "http://host.docker.internal:8088"
+      NPM_CONFIG_STRICT_SSL: false
+      
     ports:
       - "127.0.0.1:9000:9000"  # exposing the dynamic webpack dev server
     container_name: superset_node

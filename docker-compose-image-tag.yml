@@ -47,6 +47,7 @@ services:
     volumes:
       - db_home:/var/lib/postgresql/data
       - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/assets/Nexus.png:/app/superset/static/assets/images/superset-logo-horiz.png
 
   superset:
     env_file:
@@ -64,14 +65,28 @@ services:
     depends_on:
       superset-init:
         condition: service_completed_successfully
-    volumes: *superset-volumes
+    volumes: 
+      - ./docker/pythonpath_dev/superset_config.py:/app/superset_config.py
+      
+      # Manually add the items from the anchor:
+      - ./docker:/app/docker
+      - superset_home:/app/superset_home
+      
+   
     environment:
       SUPERSET_LOG_LEVEL: "${SUPERSET_LOG_LEVEL:-info}"
+      SUPERSET_CONFIG_PATH: /app/superset_config.py
 
   superset-init:
     image: *superset-image
     container_name: superset_init
-    command: ["/app/docker/docker-init.sh"]
+    # command: ["/app/docker/docker-init.sh"]
+    command: >
+      sh -c "
+      pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org setuptools==49.6.0 wheel &&
+      superset db upgrade && 
+      superset init 
+      "
     env_file:
       - path: docker/.env # default
         required: true
@@ -89,6 +104,8 @@ services:
     environment:
       SUPERSET_LOAD_EXAMPLES: "${SUPERSET_LOAD_EXAMPLES:-yes}"
       SUPERSET_LOG_LEVEL: "${SUPERSET_LOG_LEVEL:-info}"
+      -PIP_CERT: /dev/null
+      -PIP_NO_CACHE_DIR: 1
 
   superset-worker:
     image: *superset-image

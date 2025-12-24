@@ -1,0 +1,20 @@
+# Dockerfile.superset
+FROM apachesuperset.docker.scarf.sh/apache/superset:latest-dev
+
+USER root
+# Copy your corporate root CA into the system trust store location
+COPY infra/certs/bitglass-root.crt /usr/local/share/ca-certificates/bitglass-root.crt
+
+# Ensure CA bundle is installed and refreshed
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates \
+ && update-ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+# Make Python/uv honor the system CA bundle
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    PIP_CERT=/etc/ssl/certs/ca-certificates.crt \
+    UV_HTTP_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+
+# Keep running as root here because your compose already uses user: "root"

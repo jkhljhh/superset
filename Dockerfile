@@ -114,7 +114,13 @@ RUN useradd --user-group -d ${SUPERSET_HOME} -m --no-log-init --shell /bin/bash 
 # Some bash scripts needed throughout the layers
 COPY --chmod=755 docker/*.sh /app/docker/
 
-RUN pip install --no-cache-dir --upgrade uv
+
+#---modification---
+RUN pip install \
+    --no-cache-dir \
+    --upgrade uv \
+    --trusted-host pypi.org \
+    --trusted-host files.pythonhosted.org
 
 # Using uv as it's faster/simpler than pip
 RUN uv venv /app/.venv
@@ -246,9 +252,9 @@ RUN --mount=type=cache,target=${SUPERSET_HOME}/.cache/uv \
     /app/docker/pip-install.sh --requires-build-essential -r requirements/development.txt
 # Install the superset package
 RUN --mount=type=cache,target=${SUPERSET_HOME}/.cache/uv \
-    uv pip install .
+    uv pip install . --trusted-host pypi.org --trusted-host files.pythonhosted.org
 
-RUN uv pip install .[postgres]
+RUN uv pip install .[postgres] --trusted-host pypi.org --trusted-host files.pythonhosted.org
 RUN python -m compileall /app/superset
 
 USER superset
