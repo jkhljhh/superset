@@ -786,8 +786,8 @@ THEME_DEFAULT: Theme = {
         "brandSpinnerUrl": None,
         "brandSpinnerSvg": None,
         # Default colors
-        "colorPrimary": "#2893B3",  # NOTE: previous lighter primary color was #20a7c9 # noqa: E501
-        "colorLink": "#2893B3",
+        "colorPrimary": "#5304c2",  # NOTE: previous lighter primary color was #20a7c9 # noqa: E501
+        "colorLink": "#5304c2",
         "colorError": "#e04355",
         "colorWarning": "#fcc700",
         "colorSuccess": "#5ac189",
@@ -838,6 +838,25 @@ THEME_FONT_URL_ALLOWED_DOMAINS: list[str] = [
 ]
 
 # ---------------------------------------------------
+# THEME_OVERRIDES is used for adding custom theme to superset
+# example code for "My theme" custom scheme
+# THEME_OVERRIDES = {
+#   "borderRadius": 4,
+#   "colors": {
+#     "primary": {
+#       "base": 'red',
+#     },
+#     "secondary": {
+#       "base": 'green',
+#     },
+#     "grayscale": {
+#       "base": 'orange',
+#     }
+#   }
+# }
+
+THEME_OVERRIDES: dict[str, Any] = {}
+
 # EXTRA_SEQUENTIAL_COLOR_SCHEMES is used for adding custom sequential color schemes
 # EXTRA_SEQUENTIAL_COLOR_SCHEMES =  [
 #     {
