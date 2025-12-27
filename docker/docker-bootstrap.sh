@@ -23,12 +23,12 @@ if [ "$DEV_MODE" == "true" ]; then
     if [ "$(whoami)" = "root" ] && command -v uv > /dev/null 2>&1; then
       # Always ensure superset-core is available
       echo "Installing superset-core in editable mode"
-      uv pip install --no-deps -e /app/superset-core
+      uv pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --no-deps -e /app/superset-core
 
       # Only reinstall the main app for non-worker processes
       if [ "$1" != "worker" ] && [ "$1" != "beat" ]; then
         echo "Reinstalling the app in editable mode"
-        uv pip install -e .
+        uv pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -e .
       fi
     fi
 fi
@@ -47,10 +47,10 @@ if [[ "$DATABASE_DIALECT" == postgres* ]] && [ "$(whoami)" = "root" ] && [ "$1" 
     echo "Installing postgres requirements"
     if command -v uv > /dev/null 2>&1; then
         # Use uv in newer images
-        uv pip install -e .[postgres]
+        uv pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -e .[postgres]
     else
         # Use pip in older images
-        pip install -e .[postgres]
+        pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -e .[postgres]
     fi
 fi
 #
@@ -59,9 +59,9 @@ fi
 if [ -f "${REQUIREMENTS_LOCAL}" ]; then
   echo "Installing local overrides at ${REQUIREMENTS_LOCAL}"
   if command -v uv > /dev/null 2>&1; then
-    uv pip install --no-cache-dir -r "${REQUIREMENTS_LOCAL}"
+    uv pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --no-cache-dir -r "${REQUIREMENTS_LOCAL}"
   else
-    pip install --no-cache-dir -r "${REQUIREMENTS_LOCAL}"
+    pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --no-cache-dir -r "${REQUIREMENTS_LOCAL}"
   fi
 else
   echo "Skipping local overrides"
