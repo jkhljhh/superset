@@ -18,6 +18,5 @@
  */
 import chart from './chart.svg';
 import error from './error.svg';
-import Loading from './loading.svg'
 
-export { chart, error,Loading };
+export { chart, error };
