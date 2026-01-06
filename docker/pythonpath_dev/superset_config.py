@@ -26,6 +26,13 @@ import sys
 
 from celery.schedules import crontab
 from flask_caching.backends.filesystemcache import FileSystemCache
+import ssl
+
+# WARNING: This disables SSL verification globally for this Python process
+# This is insecure and should NOT be used in production.
+if hasattr(ssl, '_create_unverified_context'):
+    ssl._create_default_https_context = ssl._create_unverified_context
+
 
 
 logger = logging.getLogger()
@@ -157,7 +164,9 @@ try:
 except ImportError:
     logger.info("Using default Docker config...")
 
-
+# APP_ICON = "superset-frontend/src/assets/branding/superset-logo-horiz.png"
+# APP_ICON="/static/assets/images/Nexus.png"
+# APP_NAME="Nexus"
 SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
 ENABLE_PROXY_FIX = True
