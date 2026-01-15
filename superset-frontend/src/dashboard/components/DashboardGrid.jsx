@@ -219,8 +219,12 @@ class DashboardGrid extends PureComponent {
           </>
         }
         buttonAction={() => {
-          navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
+          // navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
+          //   newWindow: true,
+          // });
+           navigateTo(`http://localhost:3000/self-bi/chart/add/${dashboardId}`, {
             newWindow: true,
+            isExternal: true,
           });
         }}
         image="chart.svg"
@@ -241,8 +245,13 @@ class DashboardGrid extends PureComponent {
           </>
         }
         buttonAction={() => {
-          navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
+
+          // navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
+          //   newWindow: true,
+          // });
+           navigateTo(`http://localhost:3000/self-bi/chart/add/${dashboardId}`, {
             newWindow: true,
+            isExternal: true,
           });
         }}
         image="chart.svg"
