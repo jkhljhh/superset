@@ -27,7 +27,6 @@ import sys
 from celery.schedules import crontab
 from flask_caching.backends.filesystemcache import FileSystemCache
 
-
 logger = logging.getLogger()
 
 #----Modification to change x-frame flag
@@ -157,7 +156,9 @@ try:
 except ImportError:
     logger.info("Using default Docker config...")
 
-
-SESSION_COOKIE_SAMESITE = "None"
-SESSION_COOKIE_SECURE = True
+# APP_ICON = "superset-frontend/src/assets/branding/superset-logo-horiz.png"
+# APP_ICON="/static/assets/images/Nexus.png"
+# APP_NAME="Nexus"
+SESSION_COOKIE_SAMESITE = "lax"
+SESSION_COOKIE_SECURE = False
 ENABLE_PROXY_FIX = True
