@@ -375,8 +375,17 @@ class SliceAdder extends Component<SliceAdderProps, SliceAdderState> {
             icon={
               <Icons.PlusOutlined iconSize="m" iconColor={theme.colorPrimary} />
             }
+          //   onClick={() =>
+          //     navigateTo(`/chart/add?dashboard_id=${this.props.dashboardId}`, {
+          //       newWindow: true,
+          //     })
+          //   }
+          // >
             onClick={() =>
-              navigateTo(`/chart/add?dashboard_id=${this.props.dashboardId}`, {
+              // navigateTo(`/chart/add?dashboard_id=${this.props.dashboardId}`, {
+              //   newWindow: true,
+              // })
+               navigateTo(`http://localhost:3000/self-bi/chart/add/${this.props.dashboardId}`, {
                 newWindow: true,
               })
             }

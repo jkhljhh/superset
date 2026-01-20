@@ -219,7 +219,7 @@ class DashboardGrid extends PureComponent {
           </>
         }
         buttonAction={() => {
-          navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
+          navigateTo(`http://localhost:3000/self-bi/chart/add/${dashboardId}`, {
             newWindow: true,
           });
         }}
@@ -241,7 +241,7 @@ class DashboardGrid extends PureComponent {
           </>
         }
         buttonAction={() => {
-          navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
+          navigateTo(`http://localhost:3000/self-bi/chart/add/${dashboardId}`, {
             newWindow: true,
           });
         }}
