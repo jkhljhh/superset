@@ -26,12 +26,29 @@ import sys
 
 from celery.schedules import crontab
 from flask_caching.backends.filesystemcache import FileSystemCache
+import ssl
+
+# WARNING: This disables SSL verification globally for this Python process
+# This is insecure and should NOT be used in production.
+if hasattr(ssl, '_create_unverified_context'):
+    ssl._create_default_https_context = ssl._create_unverified_context
+
+
+import logging
+LOG_LEVEL = logging.DEBUG
+FAB_LOG_LEVEL = logging.DEBUG
+
+
+
 
 logger = logging.getLogger()
+
+
 
 #----Modification to change x-frame flag
 # Enable CORS
 ENABLE_CORS = True
+GUEST_ROLE_NAME='Admin'
 
 # CORS options
 CORS_OPTIONS = {
@@ -120,8 +137,10 @@ class CeleryConfig:
 
 CELERY_CONFIG = CeleryConfig
 
-FEATURE_FLAGS = {"ALERT_REPORTS": True,"EMBEDDED_SUPERSET": True,"GLOBAL_ASYNC_QUERIES": False, }
+FEATURE_FLAGS = {"ALERT_REPORTS": True,"EMBEDDED_SUPERSET": True,"GLOBAL_ASYNC_QUERIES": False, "GUEST_TOKEN": True, }
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
+GUEST_TOKEN_JWT_AUDIENCE = "http://localhost:8088/"
+
 WEBDRIVER_BASEURL = "http://superset:8088/"  # When using docker compose baseurl should be http://superset_app:8088/  # noqa: E501
 # The base URL for the email report hyperlinks.
 WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
