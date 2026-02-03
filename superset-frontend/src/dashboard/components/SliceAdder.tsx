@@ -85,6 +85,7 @@ type SliceAdderState = {
 };
 
 const KEYS_TO_FILTERS = ['slice_name', 'viz_type', 'datasource_name'];
+const parentOrigin = new URL(document.referrer).origin;
 const KEYS_TO_SORT = {
   slice_name: t('name'),
   viz_type: t('viz type'),
@@ -379,7 +380,8 @@ class SliceAdder extends Component<SliceAdderProps, SliceAdderState> {
               // navigateTo(`/chart/add?dashboard_id=${this.props.dashboardId}`, {
               //   newWindow: true,
               // })
-               navigateTo(`http://localhost:3000/self-bi/chart/add/${this.props.dashboardId}`, {
+                
+               navigateTo(`${parentOrigin}/self-bi/chart/add/${this.props.dashboardId}`, {
                 newWindow: true,
               })
             }

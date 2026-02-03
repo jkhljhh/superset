@@ -222,7 +222,8 @@ class DashboardGrid extends PureComponent {
           // navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
           //   newWindow: true,
           // });
-           navigateTo(`http://localhost:3000/self-bi/chart/add/${dashboardId}`, {
+          const parentOrigin = new URL(document.referrer).origin;
+           navigateTo(`${parentOrigin}/self-bi/chart/add/${dashboardId}`, {
             newWindow: true,
             isExternal: true,
           });
@@ -249,7 +250,8 @@ class DashboardGrid extends PureComponent {
           // navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
           //   newWindow: true,
           // });
-           navigateTo(`http://localhost:3000/self-bi/chart/add/${dashboardId}`, {
+          const parentOrigin = new URL(document.referrer).origin;
+           navigateTo(`${parentOrigin}/self-bi/chart/add/${dashboardId}`, {
             newWindow: true,
             isExternal: true,
           });
