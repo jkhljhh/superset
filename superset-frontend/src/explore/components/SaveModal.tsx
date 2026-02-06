@@ -47,7 +47,7 @@ import { setSaveChartModalVisibility } from 'src/explore/actions/saveModalAction
 import { SaveActionType } from 'src/explore/types';
 import { UserWithPermissionsAndRoles } from 'src/types/bootstrapTypes';
 import {
-  removeChartState,
+ // removeChartState,
   updateChartState,
 } from 'src/dashboard/actions/dashboardState';
 import { Dashboard } from 'src/types/Dashboard';
@@ -281,9 +281,19 @@ class SaveModal extends Component<SaveModalProps, SaveModalState> {
 
       // Go to new dashboard url
       if (gotodash && dashboard) {
-        this.props.dispatch(removeChartState(value.id));
-        this.props.history.push(dashboard.url);
-        return;
+        // this.props.dispatch(removeChartState(value.id));
+        // this.props.history.push(dashboard.url);
+        // return;
+        const targetUrl = `/self-bi/${dashboard?.id ?? value.id}`;
+        console.log("sending data to localhost;3000");
+
+          // Tell the parent window (your Next.js app) to navigate
+          window.top?.postMessage(
+            { type: 'NAVIGATE_SELF_BI', url: targetUrl },
+            'http://localhost:3000',//http://64.227.152.66:3000/
+          );
+
+          return;
       }
 
       const searchParams = this.handleRedirect(window.location.search, value);

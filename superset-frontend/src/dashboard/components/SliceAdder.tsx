@@ -50,7 +50,7 @@ import { debounce, pickBy } from 'lodash';
 import { Dispatch } from 'redux';
 import { Slice } from 'src/dashboard/types';
 import { withTheme, Theme } from '@emotion/react';
-import { navigateTo } from 'src/utils/navigationUtils';
+//import { navigateTo } from 'src/utils/navigationUtils';
 import type { ConnectDragSource } from 'react-dnd';
 import AddSliceCard from './AddSliceCard';
 import AddSliceDragPreview from './dnd/AddSliceDragPreview';
@@ -85,7 +85,7 @@ type SliceAdderState = {
 };
 
 const KEYS_TO_FILTERS = ['slice_name', 'viz_type', 'datasource_name'];
-const parentOrigin = new URL(document.referrer).origin;
+//const parentOrigin = new URL(document.referrer).origin;
 const KEYS_TO_SORT = {
   slice_name: t('name'),
   viz_type: t('viz type'),
@@ -376,15 +376,26 @@ class SliceAdder extends Component<SliceAdderProps, SliceAdderState> {
             icon={
               <Icons.PlusOutlined iconSize="m" iconColor={theme.colorPrimary} />
             }
-            onClick={() =>
+            onClick={() =>{
               // navigateTo(`/chart/add?dashboard_id=${this.props.dashboardId}`, {
               //   newWindow: true,
               // })
                 
-               navigateTo(`${parentOrigin}/self-bi/chart/add/${this.props.dashboardId}`, {
-                newWindow: true,
-              })
-            }
+              //  navigateTo(`${parentOrigin}/self-bi/chart/add/${this.props.dashboardId}`, {
+              //   newWindow: true,
+              // })
+              const targetUrl = `/self-bi/chart/add/${this.props.dashboardId}`;
+              console.log("sending data to localhost;3000");
+
+                // Tell the parent window (your Next.js app) to navigate
+                window.top?.postMessage(
+                  { type: 'NAVIGATE_SELF_BI', url: targetUrl },
+                  'http://localhost:3000',//http://64.227.152.66:3000/
+                );
+
+         
+              
+            }}
           >
             {t('Create new chart')}
           </NewChartButton>
