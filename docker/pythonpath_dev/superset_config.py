@@ -177,7 +177,7 @@ except ImportError:
 
 # APP_ICON = "superset-frontend/src/assets/branding/superset-logo-horiz.png"
 # APP_ICON="/static/assets/images/Nexus.png"
-# APP_NAME="Nexus"
+APP_NAME="SELF-BI"
 SESSION_COOKIE_SAMESITE = "lax"
 SESSION_COOKIE_SECURE = False
 ENABLE_PROXY_FIX = True
