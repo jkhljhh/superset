@@ -74,8 +74,6 @@ const AppShell = () => {
  const location = useLocation();
 const isExplore = location.pathname.startsWith('/explore') ;
 
-  const isEmbedded =
-    new URLSearchParams(location.search).get('embed') === '1';
 
   const hideMenu = isExplore;
   return (
