@@ -23,8 +23,9 @@ const isAbsoluteUrl = (url: string) =>
 export const navigateTo = (
   url: string,
   options?: { newWindow?: boolean; assign?: boolean },
-) => {
-  
+) =>{
+
+ 
   // if (options?.newWindow) {
   //   window.open(ensureAppRoot(url), '_blank', 'noopener noreferrer');
   // } else if (options?.assign) {

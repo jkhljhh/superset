@@ -72,8 +72,10 @@ const LocationPathnameLogger = () => {
 };
 const AppShell = () => {
  const location = useLocation();
-const isExplore = location.pathname.startsWith('/explore') ;
+const isExplore = location.pathname.startsWith('/explore') && (window.self!=window.parent) ;
 
+  const isEmbedded =
+    new URLSearchParams(location.search).get('embed') === '1';
 
   const hideMenu = isExplore;
   return (
