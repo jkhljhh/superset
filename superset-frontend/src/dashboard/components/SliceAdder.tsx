@@ -17,6 +17,7 @@
  * under the License.
  */
 /* eslint-env browser */
+import {  NEXUS_DOMAIN, NEXUS_NAV_STRING } from 'src/constants';
 import { Component } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
@@ -375,20 +376,28 @@ class SliceAdder extends Component<SliceAdderProps, SliceAdderState> {
             icon={
               <Icons.PlusOutlined iconSize="m" iconColor={theme.colorPrimary} />
             }
-          //   onClick={() =>
-          //     navigateTo(`/chart/add?dashboard_id=${this.props.dashboardId}`, {
-          //       newWindow: true,
-          //     })
-          //   }
-          // >
-            onClick={() =>
-              // navigateTo(`/chart/add?dashboard_id=${this.props.dashboardId}`, {
-              //   newWindow: true,
-              // })
-               navigateTo(`http://localhost:3000/self-bi/chart/add/${this.props.dashboardId}`, {
+            onClick={() =>{
+             
+                
+              
+              if(window.self!=window.parent){
+                const targetUrl = `/self-bi/chart/add/${this.props.dashboardId}`;
+              console.log("sending data to domain",NEXUS_DOMAIN);
+
+                // Tell the parent window (your Next.js app) to navigate
+                window.top?.postMessage(
+                  { type: NEXUS_NAV_STRING, url: targetUrl },
+                  NEXUS_DOMAIN,//http://64.227.152.66:3000/
+                );
+                return;
+
+
+              }
+              navigateTo(`/chart/add?dashboard_id=${this.props.dashboardId}`, {
                 newWindow: true,
               })
-            }
+
+            }}
           >
             {t('Create new chart')}
           </NewChartButton>
