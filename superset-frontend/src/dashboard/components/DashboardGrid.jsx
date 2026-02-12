@@ -251,6 +251,7 @@ class DashboardGrid extends PureComponent {
           }
           navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
             newWindow: true,
+            isExternal: true,
           });
          
         }}
@@ -284,6 +285,7 @@ class DashboardGrid extends PureComponent {
           }
           navigateTo(`/chart/add?dashboard_id=${dashboardId}`, {
             newWindow: true,
+            isExternal: true,
           });
           
         }}

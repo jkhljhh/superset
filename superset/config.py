@@ -302,7 +302,7 @@ SQLGLOT_DIALECTS_EXTENSIONS: DialectExtensions | Callable[[], DialectExtensions]
 QUERY_SEARCH_LIMIT = 1000
 
 # Flask-WTF flag for CSRF
-WTF_CSRF_ENABLED = True
+WTF_CSRF_ENABLED = False
 
 # Add endpoints that need to be exempt from CSRF protection
 WTF_CSRF_EXEMPT_LIST = [
@@ -558,7 +558,7 @@ DEFAULT_FEATURE_FLAGS: dict[str, bool] = {
     "DASHBOARD_VIRTUALIZATION": True,
     # This feature flag is stil in beta and is not recommended for production use.
     "GLOBAL_ASYNC_QUERIES": False,
-    "EMBEDDED_SUPERSET": False,
+    "EMBEDDED_SUPERSET": True,
     # Enables Alerts and reports new implementation
     "ALERT_REPORTS": False,
     "ALERT_REPORT_TABS": False,
@@ -1015,7 +1015,11 @@ CORS_OPTIONS: dict[Any, Any] = {
     "origins": [
         "https://tile.openstreetmap.org",
         "https://tile.osm.ch",
-    ]
+        'http://localhost:3000',
+    ],
+    'supports_credentials': True,
+    'allow_headers': ['*'],
+    'resources': [r'/api/v1/*'],
 }
 
 # Sanitizes the HTML content used in markdowns to allow its rendering in a safe manner.
@@ -1461,6 +1465,7 @@ CONFIG_PATH_ENV_VAR = "SUPERSET_CONFIG_PATH"
 
 # Extension startup update configuration
 EXTENSION_STARTUP_LOCK_TIMEOUT = 30  # Timeout in seconds for extension update locks
+
 
 # If a callable is specified, it will be called at app startup while passing
 # a reference to the Flask app. This can be used to alter the Flask app
@@ -2142,7 +2147,7 @@ GUEST_TOKEN_JWT_EXP_SECONDS = 300  # 5 minutes
 # When generating the guest token, ensure the
 # payload's `aud` matches GUEST_TOKEN_JWT_AUDIENCE.
 GUEST_TOKEN_JWT_AUDIENCE: Callable[[], str] | str | None = None
-
+# GUEST_TOKEN_JWT_AUDIENCE: {"http://localhost:8088"}
 # A callable that can be supplied to do extra validation of guest token configuration
 # for example certain RLS parameters:
 # lambda x: len(x['rls']) == 1 and "tenant_id=" in x['rls'][0]['clause']

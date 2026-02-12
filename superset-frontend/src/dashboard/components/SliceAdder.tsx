@@ -51,7 +51,7 @@ import { debounce, pickBy } from 'lodash';
 import { Dispatch } from 'redux';
 import { Slice } from 'src/dashboard/types';
 import { withTheme, Theme } from '@emotion/react';
-import { navigateTo } from 'src/utils/navigationUtils';
+//import { navigateTo } from 'src/utils/navigationUtils';
 import type { ConnectDragSource } from 'react-dnd';
 import AddSliceCard from './AddSliceCard';
 import AddSliceDragPreview from './dnd/AddSliceDragPreview';
@@ -86,6 +86,7 @@ type SliceAdderState = {
 };
 
 const KEYS_TO_FILTERS = ['slice_name', 'viz_type', 'datasource_name'];
+//const parentOrigin = new URL(document.referrer).origin;
 const KEYS_TO_SORT = {
   slice_name: t('name'),
   viz_type: t('viz type'),

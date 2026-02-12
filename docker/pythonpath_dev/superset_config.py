@@ -34,12 +34,21 @@ if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
 
+import logging
+LOG_LEVEL = logging.DEBUG
+FAB_LOG_LEVEL = logging.DEBUG
+
+
+
 
 logger = logging.getLogger()
+
+
 
 #----Modification to change x-frame flag
 # Enable CORS
 ENABLE_CORS = True
+GUEST_ROLE_NAME='Admin'
 
 # CORS options
 CORS_OPTIONS = {
@@ -128,8 +137,10 @@ class CeleryConfig:
 
 CELERY_CONFIG = CeleryConfig
 
-FEATURE_FLAGS = {"ALERT_REPORTS": True,"EMBEDDED_SUPERSET": True,"GLOBAL_ASYNC_QUERIES": False, }
+FEATURE_FLAGS = {"ALERT_REPORTS": True,"EMBEDDED_SUPERSET": True,"GLOBAL_ASYNC_QUERIES": False, "GUEST_TOKEN": True, }
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
+GUEST_TOKEN_JWT_AUDIENCE = "http://localhost:8088/"
+
 WEBDRIVER_BASEURL = "http://superset:8088/"  # When using docker compose baseurl should be http://superset_app:8088/  # noqa: E501
 # The base URL for the email report hyperlinks.
 WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
@@ -166,7 +177,7 @@ except ImportError:
 
 # APP_ICON = "superset-frontend/src/assets/branding/superset-logo-horiz.png"
 # APP_ICON="/static/assets/images/Nexus.png"
-# APP_NAME="Nexus"
-SESSION_COOKIE_SAMESITE = "None"
-SESSION_COOKIE_SECURE = True
+APP_NAME="SELF-BI"
+SESSION_COOKIE_SAMESITE = "lax"
+SESSION_COOKIE_SECURE = False
 ENABLE_PROXY_FIX = True

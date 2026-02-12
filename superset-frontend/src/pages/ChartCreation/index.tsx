@@ -23,7 +23,8 @@ import { styled } from '@apache-superset/core/ui';
 import { withTheme, Theme } from '@emotion/react';
 import { getUrlParam } from 'src/utils/urlUtils';
 import { FilterPlugins, URL_PARAMS } from 'src/constants';
-import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+//import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import {withRouter, RouteComponentProps } from 'react-router-dom';
 import { AsyncSelect, Button, Steps } from '@superset-ui/core/components';
 import withToasts from 'src/components/MessageToasts/withToasts';
 
@@ -37,7 +38,7 @@ import {
   Dataset,
   DatasetSelectLabel,
 } from 'src/features/datasets/DatasetSelectLabel';
-import { Icons } from '@superset-ui/core/components/Icons';
+// import { Icons } from '@superset-ui/core/components/Icons';
 
 export interface ChartCreationProps extends RouteComponentProps {
   user: UserWithPermissionsAndRoles;
@@ -359,7 +360,7 @@ export class ChartCreation extends PureComponent<
   //   );
   // }
   render() {
-    const { theme } = this.props;
+    // const { theme } = this.props;
     const isButtonDisabled = this.isBtnDisabled();
     
     // --- COMMENTED OUT START ---
