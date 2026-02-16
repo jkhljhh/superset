@@ -55,6 +55,7 @@ import type { ConnectDragSource } from 'react-dnd';
 import AddSliceCard from './AddSliceCard';
 import AddSliceDragPreview from './dnd/AddSliceDragPreview';
 import { DragDroppable } from './dnd/DragDroppable';
+import { navigateTo } from 'src/utils/navigationUtils';
 
 export type SliceAdderProps = {
   theme: Theme;

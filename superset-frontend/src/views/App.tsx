@@ -72,8 +72,9 @@ const LocationPathnameLogger = () => {
 };
 const AppShell = () => {
  const location = useLocation();
-const isExplore = location.pathname.startsWith('/explore') ;
+const isExplore = location.pathname.startsWith('/explore') && (window.self!=window.parent) ;
 
+ 
 
   const hideMenu = isExplore;
   return (
