@@ -214,4 +214,4 @@ export const DEFAULT_CSV_STREAMING_ROW_THRESHOLD = 100000;
 // superset-frontend/src/utils/constant.ts
 
 export const NEXUS_NAV_STRING = process.env.NEXUS_NAV_STRING || "NAVIGATE_SELF_BI";
-export const NEXUS_DOMAIN = process.env.NEXUS_DOMAIN || "http://localhost:3000";
+export const NEXUS_DOMAIN = process.env.NEXUS_DOMAIN || "http://localhost:4000";

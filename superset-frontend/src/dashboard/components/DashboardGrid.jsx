@@ -243,6 +243,8 @@ class DashboardGrid extends PureComponent {
         buttonAction={() => {
           
           if(window.self!=window.parent){
+            console.log("ENV CHECK:", process.env.NEXUS_DOMAIN);
+
              
            navigateTo(`${NEXUS_DOMAIN}/self-bi/chart/add/${dashboardId}`, {
             newWindow: true,

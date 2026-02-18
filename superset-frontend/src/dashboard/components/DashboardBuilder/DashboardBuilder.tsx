@@ -575,6 +575,8 @@ const DashboardBuilder = () => {
     }
 
     console.log("got the id of dashboard:",id);
+    console.log("ENV CHECK:", process.env.NEXUS_DOMAIN);
+
     console.log("nexus domain",NEXUS_DOMAIN);
 
     if (isEmbedded && id) {
